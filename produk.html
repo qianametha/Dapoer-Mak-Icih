@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mak Icih - Kue Kering & Basah</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Previous styles remain the same until products section */
+
+        .product-grid {
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .product-category {
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .product-category h2 {
+            color: var(--color-accent);
+            margin-bottom: 1rem;
+        }
+
+        .product-filters {
+            margin: 2rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--color-primary);
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .filter-btn.active {
+            background-color: var(--color-accent);
+            color: white;
+        }
+
+        .about-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .about-image {
+            width: 100%;
+            height: 300px;
+            background-color: var(--color-primary);
+            border-radius: 10px;
+        }
+
+        .about-content {
+            padding: 1rem;
+        }
+
+        .timeline {
+            margin: 2rem 0;
+            position: relative;
+        }
+
+        .timeline-item {
+            margin: 2rem 0;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .contact-section {
+            padding: 4rem 2rem;
+            background-color: var(--color-primary);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-text);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid var(--color-secondary);
+            border-radius: 5px;
+        }
+
+        .contact-info {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-icon {
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Previous styles remain the same */
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Mak Icih</div>
+        <p>Kue Kering & Basah Homemade</p>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span class="cart-count">0</span>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Beranda</a>
+        <a href="produk.html">Produk</a>
+        <a href="tentang.html">Tentang Kami</a>
+        <a href="kontak.html">Kontak</a>
+    </nav>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Keranjang Belanja</h3>
+            <span class="cart-close" onclick="toggleCart()">✕</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            <p>Total: <span id="cartTotalAmount">Rp 0</span></p>
+            <button class="checkout-button" onclick="checkoutToWhatsApp()">
+                Checkout via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <section id="produk" class="product-category">
+        <h2>Katalog Produk</h2>
+        <div class="product-filters">
+            <button class="filter-btn active" onclick="filterProducts('all')">Semua</button>
+            <button class="filter-btn" onclick="filterProducts('kue-kering')">Kue Kering</button>
+            <button class="filter-btn" onclick="filterProducts('kue-basah')">Kue Basah</button>
+         </div>
+
+        <div class="product-grid">
+            <!-- Kue Kering -->
+            <div class="product-card" data-category="kue-kering">
+                <img src="Nastar.jpeg" alt="Nastar" class="product-image">
+                <h3>Nastar</h3>
+                <p>Kue kering lezat dengan selai nanas yang manis dan renyah. Terbuat dari bahan-bahan alami dan tanpa bahan pengawet.</p>
+                <br>
+                <p>Rp 150.000/toples</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Nastar', 150000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+            <div class="product-card" data-category="kue-kering">
+                <img src="Kacangsembunyi.jpeg" alt="Kacangsembunyi" class="product-image">
+                <h3>Kacang Sembunyi</h3>
+                <p>Kue kering yang unik dengan kacang tanah yang disembunyikan di dalamnya. Renyah dan lezat!</p>
+                <br>
+                <p>Rp 100.000/toples</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Kacang Sembunyi', 100000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+            <div class="product-card" data-category="kue-kering">
+                <img src="Kacang.jpeg" alt="Kacang" class="product-image">
+                <h3>Kue Kacang</h3>
+                <p>Kue kering yang terbuat dari kacang tanah yang digoreng hingga renyah. Cocok untuk camilan sehari-hari.</p>
+                <br>
+                <p>Rp 140.000/toples</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Nastar', 140000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+            <div class="product-card" data-category="kue-kering">
+                <img src="Rambutan.jpeg" alt="Rambutan" class="product-image">
+                <h3>Kue Rambutan</h3>
+                <p>Kue kering yang dibentuk seperti buah rambutan. Manis dan lezat!</p>
+                <br>
+                <p>Rp 150.000/toples</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Kue Rambutan', 150000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+            <div class="product-card" data-category="kue-kering">
+                <img src="Sus.jpeg" alt="Sus" class="product-image">
+                <h3>Kue Sus Kering</h3>
+                <p>Kue kering yang diisi dengan Nutella yang lezat. Cocok untuk camilan sehari-hari.</p>
+                <br>
+                <p>Rp 160.000/toples</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Kue Sus Kering', 160000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+            <div class="product-card" data-category="kue-kering">
+                <img src="Keciput.jpeg" alt="Keciput" class="product-image">
+                <h3>Kue Keciput</h3>
+                <p>Kue kering yang lezat dan renyah!</p>
+                <br>
+                <p>Rp 140.000/toples</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Kue Keciput', 140000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+            <div class="product-card" data-category="kue-kering">
+                <img src="Donatmini.jpeg" alt="Donatmini" class="product-image">
+                <h3>Kue Donat Mini</h3>
+                <p>Donat Mini yang renyah, cocok untuk cemilan sehari-hari.</p>
+                <br>
+                <p>Rp 150.000/toples</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Kue Donat Mini', 140000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+            <div class="product-card" data-category="kue-kering">
+                <img src="Kastengel.jpeg" alt="Kastengel" class="product-image">
+                <h3>Kastengel</h3>
+                <p>Kue kering yang terbuat dari keju dan tepung terigu. Renyah dan lezat!</p>
+                <br>
+                <p>Rp 150.000/toples</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Kastengel', 150000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+           <div class="product-card" data-category="kue-kering">
+                <img src="Putrisalju.jpeg" alt="Putrisalju" class="product-image">
+                <h3>Putri Salju</h3>
+                <p>Kue kering lembut dengan taburan gula halus yang berkilauan</p>
+                <p>Rp 150.000/toples</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Putri Salju', 150000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+
+            <!-- Kue Basah -->
+            <div class="product-card" data-category="kue-basah">
+                <img src="Kuepotong.jpeg" alt="Kuepotong" class="product-image">
+                <h3>Cake Potong</h3>
+                <p>Cake yang lezat dan elegan. Terbuat dari bahan-bahan alami dan tanpa bahan pengawet.</p>
+                <br>
+                <p>Rp 150.000/pc</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Cake Potong', 150000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+            <div class="product-card" data-category="kue-basah">
+                <img src="Gulung.jpeg" alt="Gulung" class="product-image">
+                <h3>Bolu Gulung</h3>
+                <p>Bolu yang dibentuk seperti gulungan. Lezat dan elegan!</p>
+                <br>
+                <p>Rp 80.000/pc</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Bolu Gulung', 80000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+        <div class="product-card" data-category="kue-basah">
+                <img src="Bolususu.jpeg" alt="Bolususu" class="product-image">
+                <h3>Bolu Susu</h3>
+                <p>Bolu yang lembut dan lezat dengan rasa susu yang khas. Cocok untuk sarapan atau camilan.</p>
+                <br>
+                <p>Rp 100.000/pc</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Bolu Susu', 100000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+
+        <div class="product-card" data-category="kue-basah">
+                <img src="Lapissurabaya.jpeg" alt="Lapissurabaya" class="product-image">
+                <h3>Lapis Surabaya</h3>
+                <p>Bolu yang terbuat dari lapisan-lapisan kue yang lezat. Cocok untuk acara spesial.</p>
+                <br>
+                <p>Rp 250.000/pc</p>
+                <br>
+                <button class="cta-button" onclick="addToCart('Lapis Surabaya', 250000)">Tambah ke Keranjang</button>
+            </div>
+      </div>
+    </section>
+
+
+    <footer>
+        <h3>Mak Icih - Kue Kering & Basah</h3>
+        <p>Bena Baru Rt/01, Kec.Sambaliung, Kab.Berau-Kalimantan Timur</p>
+        <p>WhatsApp: 082255602735</p>
+        <p>Email: saqhinalatifah7@email.com</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        const waNumber = '082255602735'; // Ganti dengan nomor WhatsApp yang sebenarnya
+
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.classList.toggle('active');
+        }
+
+        function addToCart(productName, price) {
+            const existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            updateCartDisplay();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        }
+
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity < 1) {
+                cart.splice(index, 1);
+            }
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.querySelector('.cart-count');
+            const cartTotal = document.getElementById('cartTotalAmount');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div>
+                        <p>${item.name}</p>
+                        <p>Rp ${item.price.toLocaleString()}</p>
+                    </div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        <button class="quantity-btn" onclick="removeFromCart(${index})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `Rp ${total.toLocaleString()}`;
+        }
+
+        function checkoutToWhatsApp() {
+            if (cart.length === 0) {
+                alert('Keranjang belanja masih kosong');
+                return;
+            }
+
+            const orderDetails = cart.map(item => 
+                `${item.name} (${item.quantity}x) - Rp ${(item.price * item.quantity).toLocaleString()}`
+            ).join('\n');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            const message = `*Pesanan Baru dari Mak Icih*\n\n${orderDetails}\n\n*Total: Rp ${total.toLocaleString()}*`;
+            
+            const whatsappUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+  // Previous cart functionality remains the same
+
+        function filterProducts(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const products = document.querySelectorAll('.product-card');
+
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            products.forEach(product => {
+                if (category === 'all' || product.dataset.category === category) {
+                    product.style.display = 'block';
+                } else {
+                    product.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>

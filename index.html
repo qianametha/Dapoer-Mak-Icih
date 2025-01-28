@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mak Icih - Kue Kering & Basah</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">Mak Icih</div>
+        <p>Kue Kering & Basah Homemade</p>
+        <div class="cart-icon" onclick="toggleCart()">
+            🛒 <span class="cart-count">0</span>
+        </div>
+    </header>
+
+    <nav>
+        <a href="index.html">Beranda</a>
+        <a href="produk.html">Produk</a>
+        <a href="tentang.html">Tentang Kami</a>
+        <a href="kontak.html">Kontak</a>
+    </nav>
+
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-header">
+            <h3>Keranjang Belanja</h3>
+            <span class="cart-close" onclick="toggleCart()">✕</span>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be dynamically added here -->
+        </div>
+        <div class="cart-total">
+            <p>Total: <span id="cartTotalAmount">Rp 0</span></p>
+            <button class="checkout-button" onclick="checkoutToWhatsApp()">
+                Checkout via WhatsApp
+            </button>
+        </div>
+    </div>
+
+    <section class="hero">
+      <h2>Nikmati Kelezatan Kue Tradisional</h2>
+        <p>Dibuat dengan cinta</p>
+	<br>
+        <a href="produk.html" class="btn">Pesan Sekarang</a>
+</section>
+
+    <section class="products">
+        <div class="product-card">
+            <img src="Nastar.jpeg" alt="Nastar" class="product-image">
+            <h3>Nastar</h3>
+            <p> Kue kering lezat dengan selai nanas yang manis dan renyah. Terbuat dari bahan-bahan alami dan tanpa bahan pengawet.</p>
+	    <br>
+            <p>Rp 150.000/toples</p>
+            <br>
+            <button class="cta-button" onclick="addToCart('Nastar', 150000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="product-card">
+            <img src="Kastengel.jpeg" alt="Kastengel" class="product-image">
+            <h3>Kastengel</h3>
+            <p>Kue kering yang terbuat dari keju dan tepung terigu. Renyah dan lezat!</p>
+	    <br>
+            <p>Rp 150.000/toples</p>
+            <br>
+            <button class="cta-button" onclick="addToCart('Kastengel', 150000)">Tambah ke Keranjang</button>
+        </div>
+        <div class="product-card">
+            <img src="Gulung.jpeg" alt="Gulung" class="product-image">
+            <h3>Bolu Gulung</h3>
+            <p>Bolu yang dibentuk seperti gulungan. Lezat dan elegan!</p>
+	    <br>
+            <p>Rp 80.000/pc</p>
+            <br>
+            <button class="cta-button" onclick="addToCart('Bolu Gulung', 80000)">Tambah ke Keranjang</button>
+        </div>
+            <a href="produk.html" class="btn">Show All</a>
+    </section>
+
+    <section class="features">
+        <h2>Mengapa Memilih Mak Icih?</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>100% Homemade</h3>
+                <p>Dibuat langsung oleh tangan terampil Mak Icih dengan bahan berkualitas</p>
+            </div>
+            <div class="feature-item">
+                <h3>Pengiriman Cepat</h3>
+                <p>Layanan pengiriman ke seluruh wilayah kota dengan packaging aman</p>
+            </div>
+            <div class="feature-item">
+                <h3>Pre-Order</h3>
+                <p>Tersedia layanan pre-order untuk acara spesial Anda</p>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <h3>Mak Icih - Kue Kering & Basah</h3>
+        <p>Bena Baru Rt/01, Kec.Sambaliung, Kab.Berau-Kalimantan Timur</p>
+        <p>WhatsApp: 082255602735</p>
+        <p>Email: saqhinalatifah7@email.com</p>
+    </footer>
+
+    <script>
+        let cart = [];
+        const waNumber = '082255602735'; // Ganti dengan nomor WhatsApp yang sebenarnya
+
+        function toggleCart() {
+            const cartModal = document.getElementById('cartModal');
+            cartModal.classList.toggle('active');
+        }
+
+        function addToCart(productName, price) {
+            const existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    name: productName,
+                    price: price,
+                    quantity: 1
+                });
+            }
+            
+            updateCartDisplay();
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartDisplay();
+        }
+
+        function updateQuantity(index, change) {
+            cart[index].quantity += change;
+            if (cart[index].quantity < 1) {
+                cart.splice(index, 1);
+            }
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.querySelector('.cart-count');
+            const cartTotal = document.getElementById('cartTotalAmount');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div>
+                        <p>${item.name}</p>
+                        <p>Rp ${item.price.toLocaleString()}</p>
+                    </div>
+                    <div class="quantity-control">
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button class="quantity-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                        <button class="quantity-btn" onclick="removeFromCart(${index})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `Rp ${total.toLocaleString()}`;
+        }
+
+        function checkoutToWhatsApp() {
+            if (cart.length === 0) {
+                alert('Keranjang belanja masih kosong');
+                return;
+            }
+
+            const orderDetails = cart.map(item => 
+                `${item.name} (${item.quantity}x) - Rp ${(item.price * item.quantity).toLocaleString()}`
+            ).join('\n');
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            const message = `*Pesanan Baru dari Mak Icih*\n\n${orderDetails}\n\n*Total: Rp ${total.toLocaleString()}*`;
+            
+            const whatsappUrl = `https://wa.me/${waNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
